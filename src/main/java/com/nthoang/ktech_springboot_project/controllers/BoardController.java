@@ -16,7 +16,7 @@ public class BoardController {
     @GetMapping("board")
     public String board(Model model) {
         model.addAttribute("boardList", articleService.readArticleAll());
-        model.addAttribute("returnBoardType", "전체게시판");
+        model.addAttribute("currentBoard", "board");
         return "boards/board";
     }
 
@@ -24,6 +24,7 @@ public class BoardController {
     public String freeBoard(Model model) {
         model.addAttribute("returnBoardType", "자유게시판");
         model.addAttribute("boardList", articleService.findAllByArticleType("자유게시판"));
+        model.addAttribute("currentBoard", "freeBoard");
         return "boards/board";
     }
 
@@ -31,6 +32,7 @@ public class BoardController {
     public String developmentBoard(Model model) {
         model.addAttribute("returnBoardType", "개발게시판");
         model.addAttribute("boardList", articleService.findAllByArticleType("개발게시판"));
+        model.addAttribute("currentBoard", "developmentBoard");
         return "boards/board";
     }
 
@@ -38,6 +40,7 @@ public class BoardController {
     public String dailyBoard(Model model) {
         model.addAttribute("returnBoardType", "일상게시판");
         model.addAttribute("boardList", articleService.findAllByArticleType("일상게시판"));
+        model.addAttribute("currentBoard", "dailyBoard");
         return "boards/board";
     }
 
@@ -45,6 +48,7 @@ public class BoardController {
     public String incidentBoard(Model model) {
         model.addAttribute("returnBoardType", "사건사고게시판");
         model.addAttribute("boardList", articleService.findAllByArticleType("사건사고게시판"));
+        model.addAttribute("currentBoard", "incidentBoard");
         return "boards/board";
     }
 }

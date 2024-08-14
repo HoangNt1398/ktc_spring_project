@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns: th="http://.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="wrapper">
+
+        <div th:replace="~{fragments/header :: header}"></div>
+
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="content-wrapper">
+
+            <!-- Main content -->
+            <section class="content">
+
+                <!-- Default box -->
+                <div class="box">
+
+
+                    <div class="box">
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Title: [[${article.title}]]</h3>
+                            </div>
+                            <div class="box-body">
+                                <form role="form" method="post" th:action="@{/articles/{id}/delete (id=${article.id})}">
+                                    <div class="form-group">
+                                        <label for="content">Content:</label>
+                                        <textarea id="content" name="content" rows="4"
+                                            readonly>[[${article.content}]]</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password:</label>
+                                        <input type="password" id="password" name="password">
+                                    </div>
+
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-primary">게시글 삭제</button>
+                                    </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <a href="/boards/board" class="btn">게시판으로 가기</a>
+
+                                <a th:if="${beforeBoard != null }" th:href="@{/articles/{id} (id = ${beforeBoard.id})}"
+                                    class="btn">아전글</a>
+                                <a th:if="${nextBoard != null }" th:href="@{/articles/{id} (id = ${nextBoard.id})}"
+                                    class="btn">다음글</a>
+
+                                <a th:href="@{/articles/{id}/update (id=${article.id})}" class="btn">수정하기</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery 3 -->
+    <div th:replace="~{fragments/script :: script}"></div>
+</body>
+
+</html>

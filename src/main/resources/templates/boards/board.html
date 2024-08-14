@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns: th="http://.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+<div class="wrapper">
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Board List
+            </h1>
+            <h1>[[${returnBoardType}]]</h1> <br>
+            <a href="/articles/new-article">게시글 작성</a>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="box">
+
+
+                <div class="box">
+                    <div class="box-body">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-12" th:unless="${boardList.isEmpty()}"><table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                            <tbody>
+                                <tr>
+                                    <th>#</th>
+                                    <th>TITLE</th>
+                                    <th>BOARD</th>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr th:each="article : ${boardList}">
+                                    <td>[[${article.id}]]</td>
+                                    <td><a th:href="@{/articles/{id} (id=${article.id})}">[[${article.title}]]</a></td>
+                                    <td>[[${article.articleType}]]</td>
+                                </tr></tbody>
+                        </table>
+                    </div>
+
+                </div>    
+
+            </div>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<div th:replace="~{fragments/script :: script}"></div>
+</body>
+</html>
