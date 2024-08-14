@@ -31,26 +31,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
         return findAll(Sort.by(Sort.Order.desc("id")));
 
     }
-    @Query("SELECT a FROM Article a WHERE a.content LIKE %:searchTern%")
-    List<Article> findAllByContent(String searchTern);
-
-    @Query("SELECT a FROM Article a WHERE a.title LIKE %:searchTern%")
-    List<Article> findAllByTitle(String searchTern);
-
-    @Query("""
-            select a from Article a where a.articleType = :articleType
-            and a.content = %:searchTern%
-            """)
-    List<Article> findAllByArticleTypeAndContent
-            (@Param("articleType") String articleType, @Param("searchTern") String searchTern);
-
-    @Query("""
-            select a from Article a where a.articleType = :articleType
-            and a.title = %:searchTern%
-            """)
-    List<Article> findAllByArticleTypeAndTitle(
-            @Param("articleType") String articleType,
-            @Param("searchTern") String searchTern);
 
     List<Article> findAllByHashtags_Name(String hashtag);
 }
