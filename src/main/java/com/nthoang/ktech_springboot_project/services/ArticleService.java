@@ -15,4 +15,8 @@ public interface ArticleService {
     List<Article> searchAllByTitle(String searchTern);
     List<Article> searchAllByArticleTypeAndContent(String contentType, String searchTern);
     List<Article> searchAllByArticleTypeAndTitle(String contentType, String searchTern);
+
+    List<Article> searchArticles(String searchType, String searchTerm, String articleType);
+
+    List<Article> findAllByHashtag(String name);
 }

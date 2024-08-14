@@ -23,4 +23,12 @@ public class Article {
     @OneToMany(mappedBy = "commentedArticle")
     @ToString.Exclude
     private List<Comment> commentList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "article_hashtag",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "hashtag_id")
+    )
+    private List<Hashtag> hashtags;
 }

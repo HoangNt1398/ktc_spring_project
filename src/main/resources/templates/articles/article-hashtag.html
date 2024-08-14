@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Articles with Hashtag</title>
+</head>
+<body>
+<h1>Articles with Hashtag: <span th:text="${hashtag}"></span></h1>
+<div>
+    <ul>
+        <th:block th:each="article : ${articleList}">
+            <li>
+                <a th:href="@{/articles/{id}(id=${article.id})}" th:text="${article.title}"></a>
+            </li>
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

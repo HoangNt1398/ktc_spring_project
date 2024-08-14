@@ -18,51 +18,92 @@
 
                 <!-- Default box -->
                 <div class="box">
-
-
-                    <div class="box">
-                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Title: [[${article.title}]]</h3>
+                    <div class="box-header with-border">
+                        <h2>Title: [[${article.title}]]</h2>
+                        <form method="post" th:action="@{/articles/{id}/delete (id=${article.id})}">
+                            <div>
+                                <label for="content">Content:</label>
+                                <textarea id="content" name="content" rows="4"
+                                    readonly>[[${article.content}]]</textarea>
                             </div>
-                            <div class="box-body">
-                                <form role="form" method="post" th:action="@{/articles/{id}/delete (id=${article.id})}">
-                                    <div class="form-group">
-                                        <label for="content">Content:</label>
-                                        <textarea id="content" name="content" rows="4"
-                                            readonly>[[${article.content}]]</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password:</label>
-                                        <input type="password" id="password" name="password">
-                                    </div>
-
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary">게시글 삭제</button>
-                                    </div>
+                            <div>
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password">
                             </div>
-
-                            <div class="box-footer">
-                                <a href="/boards/board" class="btn">게시판으로 가기</a>
-
-                                <a th:if="${beforeBoard != null }" th:href="@{/articles/{id} (id = ${beforeBoard.id})}"
-                                    class="btn">아전글</a>
-                                <a th:if="${nextBoard != null }" th:href="@{/articles/{id} (id = ${nextBoard.id})}"
-                                    class="btn">다음글</a>
-
-                                <a th:href="@{/articles/{id}/update (id=${article.id})}" class="btn">수정하기</a>
-                            </div>
-                        </div>
-
+                            <button type="submit" class="btn">게시글 삭제</button>
+                        </form>
                     </div>
-                    <!-- /.box -->
 
-            </section>
-            <!-- /.content -->
+
+                    <div class="box-header with-border">
+                        <a href="/boards/board" class="btn">게시판으로 가기</a>
+
+                        <a th:if="${beforeBoard != null }" th:href="@{/articles/{id} (id = ${beforeBoard.id})}"
+                            class="btn">아전글</a>
+                        <a th:if="${nextBoard != null }" th:href="@{/articles/{id} (id = ${nextBoard.id})}"
+                            class="btn">다음글</a>
+
+                        <a th:href="@{/articles/{id}/update (id=${article.id})}" class="btn">수정하기</a>
+                    </div>
+
+                    <div>
+                        <h3>Hashtags:</h3>
+                        <ul>
+                            <th:block th:each="hashtag : ${hashtags}">
+                                <li>
+                                    <a th:href="@{/articles/hashtag/{name}(name=${hashtag.name})}" th:text="${hashtag.name}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+
+                    <div class="box-header with-border">
+                        <h1>댓글 달기</h1>
+                        <form th:action="@{/comments/{articleId}/comment (articleId = ${article.id})}" method="post">
+                            <div>
+                                <label for="form-password">Password:</label>
+                                <input type="password" id="form-password" name="password">
+                            </div>
+
+                            <div>
+                                <label for="form-content">Content:</label>
+                                <textarea id="form-content" name="content" rows="4"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn">댓글 작성</button>
+                        </form>
+                    </div>
+
+
+                    <div th:if="${commentList.isEmpty()}">
+                        <h2>댓글이 업습니다</h2>
+                    </div>
+                    <div th:unless="${commentList.isEmpty()}" id="div4" class="container"
+                        th:each="comment : ${commentList}">
+                        <form
+                            th:action="@{/comments/{articleId}/{id}/delete(articleId=${article.id}, id=${comment.id})}"
+                            method="post">
+                            <h3>댓글 내용: [[${comment.content}]]</h3>
+                            <div>
+                                <label for="comment-password">Password:</label>
+                                <input type="password" id="comment-password" name="password">
+                            </div>
+
+                            <button type="submit" class="btn">댓글 삭제</button>
+                        </form>
+                    </div>
+
+                </div>
+
         </div>
-        <!-- /.content-wrapper -->
+        <!-- /.box -->
 
-        <div th:replace="~{fragments/footer :: footer}"></div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
     </div>
     <!-- ./wrapper -->
 

@@ -55,7 +55,17 @@ public class ArticleController {
         model.addAttribute("beforeBoard", beforeArticle);
         model.addAttribute("article", article);
         model.addAttribute("commentList", commentService.getCommentList(id));
+        model.addAttribute("hashtags", article.getHashtags());
         return "articles/article-view";
+    }
+
+
+    @GetMapping("hashtag/{name}")
+    public String articlesByHashtag(@PathVariable("name") String name, Model model) {
+        List<Article> articles = articleService.findAllByHashtag(name);
+        model.addAttribute("articleList", articles);
+        model.addAttribute("hashtag", name);
+        return "articles/article-hashtag";
     }
 
     @PostMapping("{id}/delete")
@@ -92,31 +102,26 @@ public class ArticleController {
         return "redirect:/boards/board";
     }
 
-    @PostMapping("article-tag")
-    public String searchByTag(@RequestParam("tag") String tag, Model model) {
-        final String TAG = String.format("#%s", tag);
-        model.addAttribute("articleList", articleService.findArticleAllByTag(TAG));
-        model.addAttribute("tag", TAG);
-        return "articles/article-tag";
-    }
 
     @PostMapping("article-search")
     public String search(@RequestParam("searchTern") String searchTern,
                          @RequestParam("searchType") String searchType,
                          @RequestParam("articleType") String articleType,
-                         Model model) {
-        List<Article> articleList;
-        if (articleType.equals("전체게시판")) {
-            articleList = searchType.equals("content")
-                    ? articleService.searchAllByContent(searchTern)
-                    : articleService.searchAllByTitle(searchTern);
-        } else {
-            articleList = searchType.equals("content")
-                    ? articleService.searchAllByArticleTypeAndContent(articleType, searchTern)
-                    : articleService.searchAllByArticleTypeAndTitle(articleType, searchTern);
+                         Model model
+    ) {
+
+        List<Article> articleList = null;
+        if(articleType.equals("전체게시판")){
+            articleList =  searchType.equals("content")?
+                    articleService.searchAllByContent(searchTern) :
+                    articleService.searchAllByTitle(searchTern);
+        }else{
+            articleList  = searchType.equals("content") ?
+                    articleService.searchAllByArticleTypeAndContent(articleType,searchTern) :
+                    articleService.searchAllByArticleTypeAndTitle(articleType , searchTern);
         }
-        model.addAttribute("articleList", articleList);
-        model.addAttribute("searchTern", searchTern);
+        model.addAttribute("articleList",articleList);
+        model.addAttribute("searchTern",searchTern);
         return "articles/article-search-view";
     }
 

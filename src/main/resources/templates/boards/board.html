@@ -10,6 +10,26 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="content-wrapper">
+
+        <div class="box box-danger">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <form action="/articles/article-search" method="post">
+                            <label for="input">검색어: </label>
+                            <input type="text" id="input" name="searchTern" required>
+                            <label for="input-type">검색 기준 선택: </label>
+                            <select id="input-type" name="searchType" required>
+                                <option value="title">Title</option>
+                                <option value="content">Content</option>
+                            </select>
+                            <input type="hidden" name="articleType" th:value="${returnBoardType}">
+                            <button type="submit">찾기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <section class="content-header">
             <h1>
                 Board List
@@ -25,6 +45,10 @@
             <div class="box">
 
 
+                <div th:if="${boardList.isEmpty()}">
+                    <h1>해당 데이터가 업습니다</h1>
+                </div>
+                
                 <div class="box">
                     <div class="box-body">
                         <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-12" th:unless="${boardList.isEmpty()}"><table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
