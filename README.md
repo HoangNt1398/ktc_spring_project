@@ -37,4 +37,20 @@
    - 게시글 제목 및 내용 검색 기능
    - 선택한 게시판 내 검색 또는 전체 게시글 검색 가능
 
-## 프로젝트 구조
+## 프로젝트 실행 방법
+
+1. **프로젝트 클론**  
+   먼저, 해당 프로젝트를 로컬 환경으로 클론합니다.
+
+2. **IntelliJ IDEA에서 프로젝트 열기**  
+   클론 받은 프로젝트 폴더를 IntelliJ IDEA에서 엽니다.
+
+3. **애플리케이션 실행**  
+   `KtechSpringbootProjectApplication.java` 파일에서 `main` 메서드를 실행하여 애플리케이션을 시작합니다.
+
+## 사용 기술 스택
+- **Java 8** (JDK 17.0.9)
+- **HTML, CSS**
+- **Spring Framework**
+- **JPA Framework**
+- **SQLite DataBase**
