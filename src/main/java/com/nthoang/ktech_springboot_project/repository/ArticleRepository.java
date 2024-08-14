@@ -11,20 +11,12 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    // Tìm tất cả bài viết theo loại và sắp xếp theo ID giảm dần
     List<Article> findAllByArticleTypeOrderByIdDesc(String articleType);
 
-    // Tìm tất cả bài viết theo nội dung chứa từ khóa
-    List<Article> findAllByContentContainingIgnoreCase(String content);
-
-    // Tìm tất cả bài viết theo tiêu đề chứa từ khóa
     List<Article> findAllByTitleContainingIgnoreCase(String title);
-
-    // Tìm tất cả bài viết theo loại và nội dung chứa từ khóa
-    List<Article> findAllByArticleTypeAndContentContainingIgnoreCase(String articleType, String content);
-
-    // Tìm tất cả bài viết theo loại và tiêu đề chứa từ khóa
+    List<Article> findAllByContentContainingIgnoreCase(String content);
     List<Article> findAllByArticleTypeAndTitleContainingIgnoreCase(String articleType, String title);
+    List<Article> findAllByArticleTypeAndContentContainingIgnoreCase(String articleType, String content);
 
     // Tìm tất cả bài viết theo ID giảm dần
     default List<Article> findAllOrderByIdDesc() {

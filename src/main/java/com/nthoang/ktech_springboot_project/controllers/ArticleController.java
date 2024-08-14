@@ -104,24 +104,30 @@ public class ArticleController {
 
 
     @PostMapping("article-search")
-    public String search(@RequestParam("searchTern") String searchTern,
-                         @RequestParam("searchType") String searchType,
-                         @RequestParam("articleType") String articleType,
-                         Model model
-    ) {
+    public String searchArticles(
+            @RequestParam("searchTerm") String searchTerm,
+            @RequestParam("searchType") String searchType,
+            @RequestParam(value = "articleType", required = false) String articleType,
+            Model model) {
 
-        List<Article> articleList = null;
-        if(articleType.equals("전체게시판")){
-            articleList =  searchType.equals("content")?
-                    articleService.searchAllByContent(searchTern) :
-                    articleService.searchAllByTitle(searchTern);
-        }else{
-            articleList  = searchType.equals("content") ?
-                    articleService.searchAllByArticleTypeAndContent(articleType,searchTern) :
-                    articleService.searchAllByArticleTypeAndTitle(articleType , searchTern);
+        if ("title".equalsIgnoreCase(searchType)) {
+            if (articleType != null && !articleType.isEmpty()) {
+                model.addAttribute("articles", articleService.searchByTitleAndArticleType(searchTerm, articleType));
+            } else {
+                model.addAttribute("articles", articleService.searchByTitle(searchTerm));
+            }
+        } else if ("content".equalsIgnoreCase(searchType)) {
+            if (articleType != null && !articleType.isEmpty()) {
+                model.addAttribute("articles", articleService.searchByContentAndArticleType(searchTerm, articleType));
+            } else {
+                model.addAttribute("articles", articleService.searchByContent(searchTerm));
+            }
+        } else {
+            // Handle invalid searchType
+            model.addAttribute("error", "Invalid search type");
         }
-        model.addAttribute("articleList",articleList);
-        model.addAttribute("searchTern",searchTern);
+
+        model.addAttribute("returnBoardType", articleType != null ? articleType : "Tất cả");
         return "articles/article-search-view";
     }
 

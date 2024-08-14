@@ -1,77 +1,91 @@
 <!DOCTYPE html>
 <html xmlns: th="http://.thymeleaf.org">
-
 <head th:replace="~{fragments/head :: head}"></head>
-
 <body class="hold-transition skin-blue sidebar-mini">
 
-    <div class="wrapper">
+<div class="wrapper">
 
-        <div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
 
-        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <section class="content">
+    <div class="content-wrapper">
 
-                <!-- Default box -->
-                <div class="box">
+        <div class="box box-danger">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <form action="/articles/article-search" method="post">
+                            <label for="searchTerm">Search:</label>
+                            <input type="text" id="searchTerm" name="searchTerm" required>
 
+                            <label for="searchType">search criteria:</label>
+                            <select id="searchType" name="searchType" required>
+                                <option value="title">Title</option>
+                                <option value="content">Content</option>
+                            </select>
 
-                    <div class="content">
-                        <h1>찾은 내용: [[${searchTern}]] </h1>
+                            <label for="articleType">Select forum:</label>
+                            <select id="articleType" name="articleType">
+                                <option value="">전체게시판</option>
+                                <option value="자유게시판">자유게시판</option>
+                                <option value="개발게시판">개발게시판</option>
+                                <option value="일상게시판">일상게시판</option>
+                                <option value="사건사고게시판">사건사고게시판</option>
+                            </select>
+
+                            <button type="submit">Search</button>
+                        </form>
                     </div>
-                    <div th:if="${articleList.isEmpty()}">
-                        <h1>데이터가 업습니다</h1>
-                    </div>
-
-                    <div class="box">
-                        <div class="box-body">
-                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                                <div class="row">
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12" th:unless="${articleList.isEmpty()}">
-                                        <table id="example2" class="table table-bordered table-hover dataTable"
-                                            role="grid" aria-describedby="example2_info">
-                                            <tbody>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>TITLE</th>
-                                                    <th>BOARD</th>
-                                                </tr>
-                                            </tbody>
-                                            <tbody>
-                                                <tr th:each="article : ${articleList}">
-                                                    <td>[[${article.id}]]</td>
-                                                    <td><a
-                                                            th:href="@{/articles/{id} (id=${article.id})}">[[${article.title}]]</a>
-                                                    </td>
-                                                    <td>[[${article.articleType}]]</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- /.box -->
-
-            </section>
-            <!-- /.content -->
+                </div>
+            </div>
         </div>
-        <!-- /.content-wrapper -->
+        
 
-        <div th:replace="~{fragments/footer :: footer}"></div>
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="box">
+
+                <h1>Search results for: <span th:text="${returnBoardType}"></span></h1>
+                <div th:if="${#lists.isEmpty(articles)}">
+                    <h1>해당 데이터가 업습니다</h1>
+                </div>
+                
+                <div class="box">
+                    <div class="box-body" >
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-12" th:if="${not #lists.isEmpty(articles)}"><table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                            <tbody>
+                                <tr>
+                                    <th>#</th>
+                                    <th>TITLE</th>
+                                    <th>CONTENT</th>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr th:each="article : ${articles}">
+                                    <td>[[${article.id}]]</td>
+                                    <td><a th:text="${article.title}">[[${article.title}]]</a></td>
+                                    <td><a th:text="${article.content}">[[${article.content}]]</a></td>
+                                </tr></tbody>
+                        </table>
+                    </div>
+
+                </div>    
+
+            </div>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
     </div>
-    <!-- ./wrapper -->
+    <!-- /.content-wrapper -->
 
-    <!-- jQuery 3 -->
-    <div th:replace="~{fragments/script :: script}"></div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<div th:replace="~{fragments/script :: script}"></div>
 </body>
-
 </html>

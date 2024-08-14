@@ -62,34 +62,22 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(article);
     }
 
-    @Override
-    public List<Article> findArticleAllByTag(String tag) {
-        return articleRepository.findAllByContentContainingIgnoreCase(tag);
+
+
+    public List<Article> searchByTitle(String title) {
+        return articleRepository.findAllByTitleContainingIgnoreCase(title);
     }
 
-    @Override
-    public List<Article> searchAllByContent(String searchTern) {
-        return articleRepository.findAllByContentContainingIgnoreCase(searchTern);
+    public List<Article> searchByContent(String content) {
+        return articleRepository.findAllByContentContainingIgnoreCase(content);
     }
 
-    @Override
-    public List<Article> searchAllByTitle(String searchTern) {
-        return articleRepository.findAllByTitleContainingIgnoreCase(searchTern);
+    public List<Article> searchByTitleAndArticleType(String title, String articleType) {
+        return articleRepository.findAllByArticleTypeAndTitleContainingIgnoreCase(articleType, title);
     }
 
-    @Override
-    public List<Article> searchAllByArticleTypeAndContent(String contentType, String searchTern) {
-        return articleRepository.findAllByArticleTypeAndContentContainingIgnoreCase(contentType, searchTern);
-    }
-
-    @Override
-    public List<Article> searchAllByArticleTypeAndTitle(String contentType, String searchTern) {
-        return articleRepository.findAllByArticleTypeAndTitleContainingIgnoreCase(contentType, searchTern);
-    }
-
-    @Override
-    public List<Article> searchArticles(String searchType, String searchTerm, String articleType) {
-        return null;
+    public List<Article> searchByContentAndArticleType(String content, String articleType) {
+        return articleRepository.findAllByArticleTypeAndContentContainingIgnoreCase(articleType, content);
     }
 
     private List<Hashtag> extractHashtags(String content) {

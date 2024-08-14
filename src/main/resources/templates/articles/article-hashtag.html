@@ -1,18 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Articles with Hashtag</title>
-</head>
-<body>
-<h1>Articles with Hashtag: <span th:text="${hashtag}"></span></h1>
-<div>
-    <ul>
-        <th:block th:each="article : ${articleList}">
-            <li>
-                <a th:href="@{/articles/{id}(id=${article.id})}" th:text="${article.title}"></a>
-            </li>
-        </th:block>
-    </ul>
-</div>
+<html xmlns: th="http://.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="wrapper">
+
+        <div th:replace="~{fragments/header :: header}"></div>
+
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="content-wrapper">
+
+            <div class="box box-danger">
+
+                <!-- Main content -->
+                <section class="content">
+
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-body">
+                            <h1>Articles with Hashtag: <span th:text="${hashtag}"></span></h1>
+                            <div>
+                                <ul>
+                                    <th:block th:each="article : ${articleList}">
+                                        <li>
+                                            <a th:href="@{/articles/{id}(id=${article.id})}"
+                                                th:text="${article.title}"></a>
+                                        </li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </div>
+
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 3 -->
+        <div th:replace="~{fragments/script :: script}"></div>
 </body>
+
 </html>

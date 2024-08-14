@@ -10,13 +10,10 @@ public interface ArticleService {
     Article findById(Long id);
     void deleteById(Long id);
     void update(Long id, String title, String content, String articleType);
-    List<Article> findArticleAllByTag(String tag);
-    List<Article> searchAllByContent(String searchTern);
-    List<Article> searchAllByTitle(String searchTern);
-    List<Article> searchAllByArticleTypeAndContent(String contentType, String searchTern);
-    List<Article> searchAllByArticleTypeAndTitle(String contentType, String searchTern);
-
-    List<Article> searchArticles(String searchType, String searchTerm, String articleType);
+    List<Article> searchByTitle(String title);
+    List<Article> searchByContent(String content);
+    List<Article> searchByTitleAndArticleType(String title, String articleType);
+    List<Article> searchByContentAndArticleType(String content, String articleType);
 
     List<Article> findAllByHashtag(String name);
 }

@@ -16,15 +16,25 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <form action="/articles/article-search" method="post">
-                            <label for="input">검색어: </label>
-                            <input type="text" id="input" name="searchTern" required>
-                            <label for="input-type">검색 기준 선택: </label>
-                            <select id="input-type" name="searchType" required>
+                            <label for="searchTerm">Search:</label>
+                            <input type="text" id="searchTerm" name="searchTerm" required>
+
+                            <label for="searchType">search criteria:</label>
+                            <select id="searchType" name="searchType" required>
                                 <option value="title">Title</option>
                                 <option value="content">Content</option>
                             </select>
-                            <input type="hidden" name="articleType" th:value="${returnBoardType}">
-                            <button type="submit">찾기</button>
+
+                            <label for="articleType">Select forum:</label>
+                            <select id="articleType" name="articleType">
+                                <option value="">전체게시판</option>
+                                <option value="자유게시판">자유게시판</option>
+                                <option value="개발게시판">개발게시판</option>
+                                <option value="일상게시판">일상게시판</option>
+                                <option value="사건사고게시판">사건사고게시판</option>
+                            </select>
+
+                            <button type="submit">Search</button>
                         </form>
                     </div>
                 </div>
